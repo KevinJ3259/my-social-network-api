@@ -1,6 +1,26 @@
 {
+  "name": "my-social-network-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinJ3259/my-social-network-api.git"
+  },
+  "author": "Kevin Jordan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinJ3259/my-social-network-api/issues"
+  },
+  "homepage": "https://github.com/KevinJ3259/my-social-network-api#readme",
   "dependencies": {
     "express.js": "^1.0.0",
-    "mongoose": "^6.4.6"
+    "moment": "^2.29.4",
+    "mongoose": "^6.4.6",
+    "nodemon": "^2.0.19"
   }
 }
