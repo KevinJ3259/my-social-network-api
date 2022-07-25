@@ -1,9 +1,6 @@
-// Require Thoughts and Users Models
 const { Thoughts, Users } = require("../models");
 
-// Set up Thoughts Controller
 const thoughtsController = {
-  // Create a new thought
   createThoughts({ params, body }, res) {
     Thoughts.create(body)
       .then(({ _id }) => {
@@ -19,12 +16,10 @@ const thoughtsController = {
       .catch((err) => res.json(err));
   },
 
-  // Get all available Thoughts
   getAllThoughts(req, res) {
     Thoughts.find({})
       .populate({ path: "reactions", select: "-__v" })
       .select("-__v")
-      // .sort({_id: -1})
       .then((dbThoughtsData) => res.json(dbThoughtsData))
       .catch((err) => {
         console.log(err);
@@ -32,7 +27,6 @@ const thoughtsController = {
       });
   },
 
-  // Get a certain thought by ID
   getThoughtsById({ params }, res) {
     Thoughts.findOne({ _id: params.id })
       .populate({ path: "reactions", select: "-__v" })
@@ -50,7 +44,6 @@ const thoughtsController = {
       });
   },
 
-  // Update a current thought by ID
   updateThoughts({ params, body }, res) {
     Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .populate({ path: "reactions", select: "-__v" })
@@ -65,7 +58,6 @@ const thoughtsController = {
       .catch((err) => res.json(err));
   },
 
-  // Delete a current thought by ID
   deleteThoughts({ params }, res) {
     Thoughts.findOneAndDelete({ _id: params.id })
       .then((dbThoughtsData) => {
@@ -78,7 +70,6 @@ const thoughtsController = {
       .catch((err) => res.status(400).json(err));
   },
 
-  // Add a new Reaction
   addReaction({ params, body }, res) {
     Thoughts.findOneAndUpdate({ _id: params.thoughtId }, { $push: { reactions: body } }, { new: true, runValidators: true })
       .populate({ path: "reactions", select: "-__v" })
@@ -93,7 +84,6 @@ const thoughtsController = {
       .catch((err) => res.status(400).json(err));
   },
 
-  // Delete a reaction by ID
   deleteReaction({ params }, res) {
     Thoughts.findOneAndUpdate({ _id: params.thoughtId }, { $pull: { reactions: { reactionId: params.reactionId } } }, { new: true })
       .then((dbThoughtsData) => {
@@ -107,5 +97,4 @@ const thoughtsController = {
   },
 };
 
-// Export module thought controller
 module.exports = thoughtsController;
